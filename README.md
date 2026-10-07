@@ -157,7 +157,47 @@ The application opens at `http://localhost:5173`.
 
 ---
 
-## 6. Research Experiment Modes
+## 6. Cloud Deployment Guide (Vercel & Render)
+
+CodeBridge is structured for cloud hosting:
+- **Backend on Render**: Runs inside a Docker container with Python, PyTorch, and OpenJDK 17 (`javac`).
+- **Frontend on Vercel**: High-speed global edge hosting for the React/Vite SPA.
+
+### Step 1: Push Code to GitHub
+```bash
+git remote add origin https://github.com/<your-username>/codebridge.git
+git branch -M main
+git push -u origin main
+```
+
+### Step 2: Deploy Backend to Render
+1. Log into [Render](https://render.com) and click **New +** > **Web Service**.
+2. Connect your GitHub repository (`codebridge`).
+3. Select **Docker** environment (Render automatically reads `Dockerfile` and `render.yaml`).
+4. Set:
+   - **Name**: `codebridge-api`
+   - **Region**: Oregon (or nearest)
+   - **Instance Type**: Free / Starter
+   - **Health Check Path**: `/api/health`
+5. Click **Deploy Web Service**.
+6. When deployment finishes, copy your Render URL:
+   `https://codebridge-api.onrender.com`
+
+### Step 3: Deploy Frontend to Vercel
+1. Log into [Vercel](https://vercel.com) and click **Add New** > **Project**.
+2. Import the `codebridge` repository.
+3. Configure project settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `frontend`
+4. In the **Environment Variables** section, add:
+   - **Key**: `VITE_API_URL`
+   - **Value**: `https://codebridge-api.onrender.com` *(your backend Render URL from Step 2)*
+5. Click **Deploy**.
+6. Your live CodeBridge translation IDE is now hosted and accessible worldwide!
+
+---
+
+## 7. Research Experiment Modes
 
 CodeBridge includes three distinct experiment modes accessible directly in the UI:
 
