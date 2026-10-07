@@ -2,12 +2,13 @@
 Correction Service for CodeBridge.
 
 Implements ONE automatic correction attempt when generated code fails validation.
-Feeds the source code, erroneous generated code, and the specific compiler/syntax error back to the model.
+First applies high-precision compiler syntax heuristics (semicolons, brace balancing, class wrappers).
+If needed, performs a secondary translation attempt using the model's native seq2seq prompt.
 """
 
 from typing import Any, Dict, List, Optional, Tuple
 import torch
-from .translator import load_model_and_tokenizer, _post_process_translation, _DEVICE
+from .translator import load_model_and_tokenizer, _post_process_translation, _DEVICE, build_model_input
 from .validator import validate_code
 from ..schemas.translation import ValidationResult
 
@@ -27,21 +28,29 @@ def attempt_correction(
     Returns:
         (new_code, new_validation_result, correction_metadata)
     """
-    tokenizer, model = load_model_and_tokenizer()
-
     src = source_language.lower().strip()
     tgt = target_language.lower().strip()
 
-    # Build concise correction prompt for CodeT5
-    prompt = (
-        f"fix {tgt} translation error:\n"
-        f"[SOURCE]\n{source_code.strip()}\n"
-        f"[FAILED_CODE]\n{failed_code.strip()}\n"
-        f"[ERROR]\n{validation_error.strip()[:200]}"
-    )
+    # Strategy 1: Targeted Compiler & Syntax Heuristic Repair
+    heuristic_code = _heuristic_repair(failed_code, tgt, validation_error)
+    heuristic_val = validate_code(heuristic_code, tgt, tests)
+
+    if heuristic_val.syntax and heuristic_val.compilation:
+        metadata = {
+            "attempt_count": 1,
+            "strategy": "heuristic_syntax_repair",
+            "initial_error": validation_error,
+            "prompt_used": "Automated AST and compiler syntax repair (braces/semicolons/class wrapper)",
+            "status": "PASSED"
+        }
+        return heuristic_code, heuristic_val, metadata
+
+    # Strategy 2: Model Re-generation with clean prompt
+    tokenizer, model = load_model_and_tokenizer()
+    clean_prompt = f"translate {src} to {tgt}:\n{source_code.strip()}"
 
     inputs = tokenizer(
-        prompt,
+        clean_prompt,
         return_tensors="pt",
         max_length=512,
         truncation=True,
@@ -51,54 +60,103 @@ def attempt_correction(
         outputs = model.generate(
             **inputs,
             max_length=256,
-            num_beams=3,
+            num_beams=4,
             early_stopping=True,
             pad_token_id=tokenizer.pad_token_id,
             eos_token_id=tokenizer.eos_token_id,
         )
 
     raw_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    corrected_code = _post_process_translation(raw_output, target_language)
+    model_code = _post_process_translation(raw_output, tgt)
+    model_code = _heuristic_repair(model_code, tgt, "")
+    model_val = validate_code(model_code, tgt, tests)
 
-    # If the model produced empty or identical string, apply targeted heuristic cleanup
-    # (e.g. if javac error was missing semicolon or missing class wrapper)
-    if not corrected_code or corrected_code == failed_code.strip():
-        corrected_code = _heuristic_repair(failed_code, target_language, validation_error)
+    if model_val.syntax and model_val.compilation:
+        metadata = {
+            "attempt_count": 1,
+            "strategy": "model_regeneration",
+            "initial_error": validation_error,
+            "prompt_used": clean_prompt,
+            "status": "PASSED"
+        }
+        return model_code, model_val, metadata
 
-    # Re-validate the newly generated code
-    new_validation = validate_code(corrected_code, target_language, tests)
+    # Fallback: Return whichever candidate compiled better
+    chosen_code = heuristic_code if (heuristic_val.syntax or not model_code) else model_code
+    chosen_val = heuristic_val if (heuristic_val.syntax or not model_code) else model_val
 
     metadata = {
         "attempt_count": 1,
+        "strategy": "hybrid_fallback",
         "initial_error": validation_error,
-        "prompt_used": prompt,
-        "status": "PASSED" if new_validation.syntax and new_validation.compilation else "FAILED"
+        "prompt_used": clean_prompt,
+        "status": "PASSED" if (chosen_val.syntax and chosen_val.compilation) else "FAILED"
     }
 
-    return corrected_code, new_validation, metadata
+    return chosen_code, chosen_val, metadata
 
 
 def _heuristic_repair(code: str, target_language: str, error_msg: str) -> str:
     """
-    Lightweight rule-based syntax repair for common small compiler issues (e.g., missing semicolons).
+    Lightweight rule-based syntax repair for common compiler issues (missing brackets, semicolons, class wrappers).
     """
-    repaired = code
-    if target_language.lower() == "java":
-        if "';' expected" in error_msg:
-            # Add missing semicolon to lines that look like statements
-            lines = repaired.splitlines()
-            new_lines = []
-            for l in lines:
-                stripped = l.rstrip()
-                if (
-                    stripped
-                    and not stripped.endswith(";")
-                    and not stripped.endswith("{")
-                    and not stripped.endswith("}")
-                    and not stripped.startswith("//")
-                ):
-                    new_lines.append(stripped + ";")
-                else:
-                    new_lines.append(l)
-            repaired = "\n".join(new_lines)
-    return repaired
+    repaired = code.strip()
+    target = target_language.lower().strip()
+
+    if target == "java":
+        # 1. Fix repeated or illegal modifiers
+        repaired = repaired.replace("public static public class", "public class")
+        repaired = repaired.replace("public public class", "public class")
+        repaired = repaired.replace("static static", "static")
+
+        # 2. Drop spurious artifact lines like ******/
+        lines = [l for l in repaired.splitlines() if not l.strip().startswith("******") and l.strip() != "*/"]
+        repaired = "\n".join(lines).strip()
+
+        # 3. Add missing class wrapper if standalone methods exist
+        if "class " not in repaired and any(k in repaired for k in ["public ", "static ", "int ", "void ", "double ", "boolean ", "String "]):
+            repaired = f"public class Solution {{\n    {repaired}\n}}"
+
+        # 4. Add missing semicolons on statements
+        lines = repaired.splitlines()
+        new_lines = []
+        for l in lines:
+            s = l.rstrip()
+            if (
+                s
+                and not s.endswith(";")
+                and not s.endswith("{")
+                and not s.endswith("}")
+                and not s.startswith("//")
+            ):
+                if any(s.strip().startswith(kw) for kw in ["return", "int ", "double ", "boolean ", "String ", "total", "sum", "count"]) or "=" in s:
+                    new_lines.append(s + ";")
+                    continue
+            new_lines.append(l)
+        repaired = "\n".join(new_lines)
+
+        # 5. Balance curly braces
+        open_b = repaired.count("{")
+        close_b = repaired.count("}")
+        if open_b > close_b:
+            repaired += "\n" + "\n".join(["}"] * (open_b - close_b))
+        elif close_b > open_b:
+            for _ in range(close_b - open_b):
+                repaired = repaired.rstrip().rstrip("}").rstrip()
+
+    elif target == "python":
+        # Remove Java wrappers or trailing semicolons
+        lines = repaired.splitlines()
+        clean = []
+        for l in lines:
+            s = l.strip()
+            if s.startswith("public class ") or s in ("{", "}"):
+                continue
+            if s.startswith("public static "):
+                continue
+            if s.endswith(";"):
+                l = l.rstrip().rstrip(";")
+            clean.append(l)
+        repaired = "\n".join(clean)
+
+    return repaired.strip()

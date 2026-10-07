@@ -134,7 +134,6 @@ def translate_code(
             max_length=max_length,
             num_beams=3,
             early_stopping=True,
-            no_repeat_ngram_size=2,
             pad_token_id=tokenizer.pad_token_id,
             eos_token_id=tokenizer.eos_token_id,
         )
@@ -176,17 +175,38 @@ def _post_process_translation(generated_text: str, target_language: str) -> str:
     ]
     for ph in prompt_headers:
         if ph in text:
-            # Take only the portion before or after, or split
             parts = text.split(ph)
             text = parts[0].strip() if parts[0].strip() else parts[-1].strip()
 
-    # Clean target Java code wrapper if incomplete
-    target = target_language.lower()
+    target = target_language.lower().strip()
     if target == "java":
-        if "class " not in text and ("public " in text or "static " in text or "int " in text or "void " in text):
-            open_b = text.count("{")
-            close_b = text.count("}")
-            if open_b > close_b:
-                text += "\n" + ("}" * (open_b - close_b))
+        # 1. Clean spurious comment asterisks or artifact lines
+        lines = [l for l in text.splitlines() if not l.strip().startswith("******") and l.strip() != "*/"]
+        text = "\n".join(lines).strip()
+
+        # 2. Wrap standalone methods in class Solution if class is missing
+        if "class " not in text and any(w in text for w in ["public ", "static ", "int ", "void ", "double ", "boolean ", "String "]):
+            text = f"public class Solution {{\n    {text}\n}}"
+
+        # 3. Always balance curly braces for valid Java compilation
+        open_b = text.count("{")
+        close_b = text.count("}")
+        if open_b > close_b:
+            text += "\n" + "\n".join(["}"] * (open_b - close_b))
+        elif close_b > open_b:
+            for _ in range(close_b - open_b):
+                text = text.rstrip().rstrip("}").rstrip()
+
+    elif target == "python":
+        lines = text.splitlines()
+        clean = []
+        for l in lines:
+            s = l.strip()
+            if s.startswith("public class ") or s in ("{", "}"):
+                continue
+            if s.startswith("public static "):
+                continue
+            clean.append(l)
+        text = "\n".join(clean).strip()
 
     return text.strip()
