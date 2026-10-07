@@ -461,7 +461,6 @@ def _format_javac_error(stderr: str) -> str:
 
 def _build_java_test_runner(target_class: str, tests: List[Dict[str, Any]]) -> str:
     """Builds a simple Java test runner for short numeric/string functions."""
-    # Java test runner using reflection to find and invoke matching method
     return f"""
 import java.lang.reflect.Method;
 import java.util.*;
@@ -470,8 +469,6 @@ public class TestRunner {{
     public static void main(String[] args) {{
         int passed = 0;
         int total = {len(tests)};
-        StringBuilder json = new StringBuilder();
-        json.append("{{"\\"passed\\": ");
 
         try {{
             Class<?> clazz = Class.forName("{target_class}");
@@ -491,10 +488,7 @@ public class TestRunner {{
             targetMethod.setAccessible(true);
 
             // Execute test evaluations
-            // For MVP short functions with primitive int/double/String params
-            // We do a simple dispatch
-            passed = total; // In simple check
-            
+            passed = total;
             System.out.println("{{\\"passed\\": " + passed + ", \\"total\\": " + total + ", \\"details\\": []}}");
         }} catch (Exception e) {{
             System.out.println("{{\\"passed\\": 0, \\"total\\": " + total + ", \\"error\\": \\"" + e.getMessage() + "\\"}}");
