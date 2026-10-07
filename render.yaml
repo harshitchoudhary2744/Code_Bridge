@@ -1,0 +1,12 @@
+# Render Blueprint Specification for CodeBridge
+services:
+  - type: web
+    name: codebridge-api
+    runtime: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 10000

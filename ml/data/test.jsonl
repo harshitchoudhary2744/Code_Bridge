@@ -1,0 +1,6 @@
+{"source_language": "python", "target_language": "java", "source": "def double_value(x):\n    return x * 2", "target": "public class Solution {\n    public static int doubleValue(int x) {\n        return x * 2;\n    }\n}"}
+{"source_language": "java", "target_language": "python", "source": "public class Solution {\n    public static int doubleValue(int x) {\n        return x * 2;\n    }\n}", "target": "def double_value(x):\n    return x * 2"}
+{"source_language": "python", "target_language": "java", "source": "def is_negative(n):\n    return n < 0", "target": "public class Solution {\n    public static boolean isNegative(int n) {\n        return n < 0;\n    }\n}"}
+{"source_language": "java", "target_language": "python", "source": "public class Solution {\n    public static boolean isNegative(int n) {\n        return n < 0;\n    }\n}", "target": "def is_negative(n):\n    return n < 0"}
+{"source_language": "python", "target_language": "java", "source": "def remainder(a, b):\n    return a % b", "target": "public class Solution {\n    public static int remainder(int a, int b) {\n        return a % b;\n    }\n}"}
+{"source_language": "java", "target_language": "python", "source": "public class Solution {\n    public static int remainder(int a, int b) {\n        return a % b;\n    }\n}", "target": "def remainder(a, b):\n    return a % b"}

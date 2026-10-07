@@ -1,0 +1,4 @@
+{"source_language": "python", "target_language": "java", "source": "def square(n):\n    return n * n", "target": "public class Solution {\n    public static int square(int n) {\n        return n * n;\n    }\n}"}
+{"source_language": "java", "target_language": "python", "source": "public class Solution {\n    public static int square(int n) {\n        return n * n;\n    }\n}", "target": "def square(n):\n    return n * n"}
+{"source_language": "python", "target_language": "java", "source": "def cube(n):\n    return n * n * n", "target": "public class Solution {\n    public static int cube(int n) {\n        return n * n * n;\n    }\n}"}
+{"source_language": "java", "target_language": "python", "source": "public class Solution {\n    public static int cube(int n) {\n        return n * n * n;\n    }\n}", "target": "def cube(n):\n    return n * n * n"}

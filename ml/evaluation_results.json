@@ -1,0 +1,119 @@
+{
+  "Baseline": {
+    "total": 6,
+    "compilation_passed": 2,
+    "exact_matches": 0,
+    "details": [
+      {
+        "sample_id": 1,
+        "output": "public static double double_value(double x) {\n    return x * 2;\n    }",
+        "valid": true
+      },
+      {
+        "sample_id": 2,
+        "output": "return x / 2;\n    public static double doubleValue(int x) {\n        return x * 2;\n    }\n    public static int doubleValue(int x) {\n        return x * 2;\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 3,
+        "output": "public static bool isnegative(int n) {\n    return n >= 0;\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 4,
+        "output": "return n > 0;\n    public static int isNegative(int n) {\n        return n > 0;\n    }\n    public static int isNegative(int n) {\n        return n > 0;\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 5,
+        "output": "return a % b",
+        "valid": false
+      },
+      {
+        "sample_id": 6,
+        "output": "return a % b",
+        "valid": true
+      }
+    ]
+  },
+  "Structural": {
+    "total": 6,
+    "compilation_passed": 0,
+    "exact_matches": 0,
+    "details": [
+      {
+        "sample_id": 1,
+        "output": "public class Solution {\n    public static int double_value(int x) {\n    return x * 2;\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 2,
+        "output": "public static double doubleValue(int x) {\n    return x * 2;\n    }\n    public static int doubleValue(int x) {\n        return x * 2;\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 3,
+        "output": "public class Solution {\n    public static bool IsNegative(int n) {\n    return n < 0;\n    }\n    public static int isNegative(int n) {\n    }\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 4,
+        "output": "public static int isNegative(int n) {\n    return n > 0;\n    }\n    public static int isNegative(int n) {\n        return n > 0;\n    }\n    public static int isNegative(int n) {\n        return n < 0;\n    }\n    }\n    public static int isNegative(int n) {\n        return n < 0;\n    }\n        return n < 0;\n    }",
+        "valid": false
+      },
+      {
+        "sample_id": 5,
+        "output": "public static int remainder(int a, int b) {",
+        "valid": false
+      },
+      {
+        "sample_id": 6,
+        "output": "public static int remainder(int a, int b) {\n    return a % b",
+        "valid": false
+      }
+    ]
+  },
+  "Structural + Validation": {
+    "total": 6,
+    "compilation_passed": 1,
+    "exact_matches": 0,
+    "details": [
+      {
+        "sample_id": 1,
+        "output": "public static int double_value(int x) {\n    return x * 2;\n    }",
+        "valid": true,
+        "correction_attempted": true
+      },
+      {
+        "sample_id": 2,
+        "output": "public static double doubleValue(int x) {\n        return x * 2;\n    }\n    public static int doubleValue(int x) {\n        return x * 2;\n    }\n    public static int doubleValue(int x) {\n        return x * 2;\n    }\n    }\n        return x * 2;\n    }\n    public static int doubleValue(int x) {\n        return x * 2;\n    }",
+        "valid": false,
+        "correction_attempted": true
+      },
+      {
+        "sample_id": 3,
+        "output": "public static int isNegative(int n) {\n    return n < 0;\n    }\n    public static int isNegative(int n) {\n    return n < 0;\n    }\n    public static int isNegative(int n) {\n    }\n    }\n    public static int isNegative(int n) {\n    }\n    }\n    public static int isNegative(int n) {\n    }\n    }\n    }",
+        "valid": false,
+        "correction_attempted": true
+      },
+      {
+        "sample_id": 4,
+        "output": "public class Solution {\n        return n > 0;\n    }\n        return n > 0;\n    }\n        return n > 0;",
+        "valid": false,
+        "correction_attempted": true
+      },
+      {
+        "sample_id": 5,
+        "output": "return a % b",
+        "valid": false,
+        "correction_attempted": true
+      },
+      {
+        "sample_id": 6,
+        "output": "return a % b\n    }\n    public static int remainder(int a, int b) {\n    return a % b\n    }\n    }\n    public static int remainder(int a, int b)",
+        "valid": false,
+        "correction_attempted": true
+      }
+    ]
+  }
+}
