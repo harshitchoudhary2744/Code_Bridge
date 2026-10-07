@@ -4,9 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    openjdk-17-jdk-headless \
-    curl \
+RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl \
+    && (apt-get install -y --no-install-recommends default-jdk-headless || apt-get install -y --no-install-recommends openjdk-17-jdk-headless || true) \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

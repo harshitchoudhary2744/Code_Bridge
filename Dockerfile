@@ -5,10 +5,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Install OpenJDK 17 headless (provides javac compiler for validation) and curl
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    openjdk-17-jdk-headless \
-    curl \
+# Create man directory required by Debian slim post-install scripts and install dependencies
+RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl \
+    && (apt-get install -y --no-install-recommends default-jdk-headless || apt-get install -y --no-install-recommends openjdk-17-jdk-headless || true) \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -31,7 +32,7 @@ COPY frontend/dist/ ./frontend/dist/
 EXPOSE 10000
 
 # Container healthcheck
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
   CMD curl -f http://localhost:${PORT:-10000}/api/health || exit 1
 
 # Launch Uvicorn dynamically binding to Render's $PORT (default 10000)
