@@ -1,7 +1,14 @@
-# CodeBridge Backend Dockerfile for Render Deployment
+# Stage 1: Build React Frontend
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Python Backend with OpenJDK 17 and PyTorch CPU
 FROM python:3.11-slim
 
-# Prevent Python from writing .pyc files and buffer stdout
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
@@ -17,18 +24,21 @@ WORKDIR /app
 # Copy dependency requirements
 COPY backend/requirements.txt ./backend/requirements.txt
 
-# Install PyTorch CPU first (compact size ~150MB, fast build, low memory)
+# Install PyTorch CPU first (compact size ~150MB, fast build, low memory footprint)
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir -r backend/requirements.txt
 
-# Copy source code and reference datasets
+# Copy backend code, models configuration, samples, and ML datasets
 COPY backend/ ./backend/
 COPY models/ ./models/
 COPY samples/ ./samples/
 COPY ml/ ./ml/
 
-# Health check
+# Copy built frontend from Stage 1 into ./frontend/dist
+COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
+
+# Container Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
   CMD curl -f http://localhost:${PORT:-8000}/api/health || exit 1
 

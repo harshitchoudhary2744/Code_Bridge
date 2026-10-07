@@ -1,7 +1,7 @@
-# Render Blueprint Specification for CodeBridge
+# Render Blueprint Specification for CodeBridge Fullstack Application
 services:
   - type: web
-    name: codebridge-api
+    name: codebridge
     runtime: docker
     dockerfilePath: Dockerfile
     plan: free

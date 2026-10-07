@@ -7,6 +7,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C.svg)](https://pytorch.org/)
 [![Transformers](https://img.shields.io/badge/HuggingFace-CodeT5--small-yellow.svg)](https://huggingface.co/Salesforce/codet5-small)
 [![React](https://img.shields.io/badge/React-18-61DAFB.svg)](https://reactjs.org/)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/harshitchoudhary2744/Code_Bridge)
 [![License](https://img.shields.io/badge/license-Academic-green.svg)]()
 
 ---
