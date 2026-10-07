@@ -32,11 +32,19 @@ from fastapi.responses import FileResponse
 FRONTEND_DIST = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist")
 )
+if not (os.path.exists(FRONTEND_DIST) and os.path.exists(os.path.join(FRONTEND_DIST, "index.html"))):
+    alt_dist = os.path.abspath(os.path.join(os.getcwd(), "frontend", "dist"))
+    if os.path.exists(alt_dist) and os.path.exists(os.path.join(alt_dist, "index.html")):
+        FRONTEND_DIST = alt_dist
 
 if os.path.exists(FRONTEND_DIST) and os.path.exists(os.path.join(FRONTEND_DIST, "index.html")):
     assets_dir = os.path.join(FRONTEND_DIST, "assets")
     if os.path.exists(assets_dir):
         app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/")
+    def serve_root():
+        return FileResponse(os.path.join(FRONTEND_DIST, "index.html"))
 
     @app.get("/{full_path:path}")
     def serve_spa(full_path: str):
