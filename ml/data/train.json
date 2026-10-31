@@ -1,7 +1,11 @@
 [
   {
     "source": "def add(a: int, b: int) -> int:\n    return a + b",
-    "target": "public static int add(int a, int b) {\n        return a + b;"
+    "target": "public class Solution {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n}"
+  },
+  {
+    "source": "public class Solution {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n}",
+    "target": "def add(a: int, b: int) -> int:\n    return a + b"
   },
   {
     "source": "def sub(a: int, b: int) -> int:\n    return a - b",
@@ -12,20 +16,12 @@
     "target": "def sub(a: int, b: int) -> int:\n    return a - b"
   },
   {
-    "source": "def sub(a: int, b: int) -> int:\n    return a - b",
-    "target": "public static int sub(int a, int b) {\n        return a - b;"
-  },
-  {
     "source": "def mult(a: int, b: int) -> int:\n    return a * b",
     "target": "public class Solution {\n    public static int mult(int a, int b) {\n        return a * b;\n    }\n}"
   },
   {
     "source": "public class Solution {\n    public static int mult(int a, int b) {\n        return a * b;\n    }\n}",
     "target": "def mult(a: int, b: int) -> int:\n    return a * b"
-  },
-  {
-    "source": "def mult(a: int, b: int) -> int:\n    return a * b",
-    "target": "public static int mult(int a, int b) {\n        return a * b;"
   },
   {
     "source": "def factorial(n: int) -> int:\n    if n <= 1:\n        return 1\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result",
@@ -36,12 +32,8 @@
     "target": "def factorial(n: int) -> int:\n    if n <= 1:\n        return 1\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result"
   },
   {
-    "source": "def factorial(n: int) -> int:\n    if n <= 1:\n        return 1\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result",
-    "target": "public static int factorial(int n) {\n        if (n <= 1) {\n            return 1;\n        int result = 1;\n        for (int i = 2; i <= n; i++) {\n            result *= i;\n        return result;"
-  },
-  {
     "source": "def isPrime(n: int) -> bool:\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
-    "target": "public static boolean isPrime(int n) {\n        if (n <= 1) {\n            return false;\n        if (n <= 3) {\n            return true;\n        if (n % 2 == 0 || n % 3 == 0) {\n            return false;\n        int i = 5;\n        while (i * i <= n) {\n            if (n % i == 0 || n % (i + 2) == 0) {\n                return false;\n            i += 6;\n        return true;"
+    "target": "public class Solution {\n    public static boolean isPrime(int n) {\n        if (n <= 1) {\n            return false;\n        }\n        if (n <= 3) {\n            return true;\n        }\n        if (n % 2 == 0 || n % 3 == 0) {\n            return false;\n        }\n        int i = 5;\n        while (i * i <= n) {\n            if (n % i == 0 || n % (i + 2) == 0) {\n                return false;\n            }\n            i += 6;\n        }\n        return true;\n    }\n}"
   },
   {
     "source": "def truncateDivide(a: int, b: int) -> int:\n    return int(a / b)",
@@ -52,20 +44,12 @@
     "target": "def truncateDivide(a: int, b: int) -> int:\n    return int(a / b)"
   },
   {
-    "source": "def truncateDivide(a: int, b: int) -> int:\n    return int(a / b)",
-    "target": "public static int truncateDivide(int a, int b) {\n        return a / b;"
-  },
-  {
     "source": "def reverseString(s: str) -> str:\n    return s[::-1]",
     "target": "public class Solution {\n    public static String reverseString(String s) {\n        return new StringBuilder(s).reverse().toString();\n    }\n}"
   },
   {
     "source": "public class Solution {\n    public static String reverseString(String s) {\n        return new StringBuilder(s).reverse().toString();\n    }\n}",
     "target": "def reverseString(s: str) -> str:\n    return s[::-1]"
-  },
-  {
-    "source": "def reverseString(s: str) -> str:\n    return s[::-1]",
-    "target": "public static String reverseString(String s) {\n        return new StringBuilder(s).reverse().toString();"
   },
   {
     "source": "def findMax(nums: list) -> int:\n    if not nums:\n        return 0\n    max_val = nums[0]\n    for val in nums[1:]:\n        if val > max_val:\n            max_val = val\n    return max_val",
@@ -76,12 +60,8 @@
     "target": "def findMax(nums: list) -> int:\n    if not nums:\n        return 0\n    max_val = nums[0]\n    for val in nums[1:]:\n        if val > max_val:\n            max_val = val\n    return max_val"
   },
   {
-    "source": "def findMax(nums: list) -> int:\n    if not nums:\n        return 0\n    max_val = nums[0]\n    for val in nums[1:]:\n        if val > max_val:\n            max_val = val\n    return max_val",
-    "target": "public static int findMax(int[] nums) {\n        if (nums == null || nums.length == 0) {\n            return 0;\n        int maxVal = nums[0];\n        for (int i = 1; i < nums.length; i++) {\n            if (nums[i] > maxVal) {\n                maxVal = nums[i];\n        return maxVal;"
-  },
-  {
     "source": "def countVowels(s: str) -> int:\n    vowels = set('aeiouAEIOU')\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count",
-    "target": "public static int countVowels(String s) {\n        if (s == null) return 0;\n        int count = 0;\n        String vowels = \"aeiouAEIOU\";\n        for (int i = 0; i < s.length(); i++) {\n            if (vowels.indexOf(s.charAt(i)) != -1) {\n                count++;\n        return count;"
+    "target": "public class Solution {\n    public static int countVowels(String s) {\n        if (s == null) return 0;\n        int count = 0;\n        String vowels = \"aeiouAEIOU\";\n        for (int i = 0; i < s.length(); i++) {\n            if (vowels.indexOf(s.charAt(i)) != -1) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
   },
   {
     "source": "def fibonacci(n: int) -> int:\n    if n <= 0:\n        return 0\n    if n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b",
@@ -92,10 +72,6 @@
     "target": "def fibonacci(n: int) -> int:\n    if n <= 0:\n        return 0\n    if n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b"
   },
   {
-    "source": "def fibonacci(n: int) -> int:\n    if n <= 0:\n        return 0\n    if n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b",
-    "target": "public static int fibonacci(int n) {\n        if (n <= 0) return 0;\n        if (n == 1) return 1;\n        int a = 0;\n        int b = 1;\n        for (int i = 2; i <= n; i++) {\n            int temp = a + b;\n            a = b;\n            b = temp;\n        return b;"
-  },
-  {
     "source": "def isEven(n: int) -> bool:\n    return n % 2 == 0",
     "target": "public class Solution {\n    public static boolean isEven(int n) {\n        return n % 2 == 0;\n    }\n}"
   },
@@ -104,19 +80,11 @@
     "target": "def isEven(n: int) -> bool:\n    return n % 2 == 0"
   },
   {
-    "source": "def isEven(n: int) -> bool:\n    return n % 2 == 0",
-    "target": "public static boolean isEven(int n) {\n        return n % 2 == 0;"
-  },
-  {
     "source": "def sumRange(n: int) -> int:\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total",
     "target": "public class Solution {\n    public static int sumRange(int n) {\n        int total = 0;\n        for (int i = 1; i <= n; i++) {\n            total += i;\n        }\n        return total;\n    }\n}"
   },
   {
     "source": "public class Solution {\n    public static int sumRange(int n) {\n        int total = 0;\n        for (int i = 1; i <= n; i++) {\n            total += i;\n        }\n        return total;\n    }\n}",
     "target": "def sumRange(n: int) -> int:\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total"
-  },
-  {
-    "source": "def sumRange(n: int) -> int:\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total",
-    "target": "public static int sumRange(int n) {\n        int total = 0;\n        for (int i = 1; i <= n; i++) {\n            total += i;\n        return total;"
   }
 ]

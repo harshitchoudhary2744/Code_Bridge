@@ -28,6 +28,7 @@ echo "[3/3] Starting Express Server on 0.0.0.0:${TARGET_PORT}..."
 export PORT="${TARGET_PORT}"
 export MODEL_SERVICE_URL="http://127.0.0.1:8000"
 export EXECUTION_RUNNER_URL="http://127.0.0.1:5000"
+export DATABASE_PATH="/app/database/transcode.sqlite"
 export NODE_PATH="/app/node_modules:/app/apps/api/node_modules"
 
 cd /app/apps/api

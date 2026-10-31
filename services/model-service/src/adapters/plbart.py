@@ -27,7 +27,8 @@ class PLBartAdapter(TranslationModelAdapter):
             )
             self.model = PLBartForConditionalGeneration.from_pretrained(
                 self.meta.checkpoint,
-                revision=self.meta.revision if self.meta.revision != "main" else None
+                revision=self.meta.revision if self.meta.revision != "main" else None,
+                low_cpu_mem_usage=True
             )
             self.model.to(self.device)
             self.model.eval()
@@ -82,6 +83,7 @@ class PLBartAdapter(TranslationModelAdapter):
     ) -> TranslateResponse:
         if not self.is_loaded:
             if not self.load(self.device):
+                err_msg = "; ".join(self.meta.limitations) if self.meta.limitations else "unknown error"
                 return TranslateResponse(
                     modelId=self.meta.id,
                     status="MODEL_UNAVAILABLE",
@@ -90,7 +92,7 @@ class PLBartAdapter(TranslationModelAdapter):
                     generationConfig=generation_config.model_dump(),
                     checkpointRevision=self.meta.revision,
                     deviceUsed=self.device,
-                    error=f"Model {self.meta.id} is not loaded or could not be loaded."
+                    error=f"Model {self.meta.id} load failed: {err_msg}"
                 )
 
         src_tag = self._lang_tag(source_language)

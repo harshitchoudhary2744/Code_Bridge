@@ -131,12 +131,14 @@ class ModelRegistry:
 
     def _register_adapter(self, meta: ModelMetadata) -> None:
         if meta.checkpoint.startswith("."):
-            if not os.path.exists(meta.checkpoint):
+            if os.path.exists(meta.checkpoint):
+                meta.checkpoint = os.path.abspath(meta.checkpoint)
+            else:
                 alt_checkpoint = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../", meta.checkpoint))
                 if os.path.exists(alt_checkpoint):
                     meta.checkpoint = alt_checkpoint
-            else:
-                meta.checkpoint = os.path.abspath(meta.checkpoint)
+                elif os.path.exists(os.path.join("/app", meta.checkpoint.lstrip("./"))):
+                    meta.checkpoint = os.path.join("/app", meta.checkpoint.lstrip("./"))
 
         if meta.family == "CodeT5" or meta.family == "CodeT5+":
             self.adapters[meta.id] = CodeT5Adapter(meta)

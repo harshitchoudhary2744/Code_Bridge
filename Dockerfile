@@ -39,7 +39,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     MODEL_SERVICE_URL=http://127.0.0.1:8000 \
     EXECUTION_RUNNER_URL=http://127.0.0.1:5000 \
     PYTHONPATH=/app \
-    NODE_PATH=/app/node_modules:/app/apps/api/node_modules
+    NODE_PATH=/app/node_modules:/app/apps/api/node_modules \
+    TRANSFORMERS_CACHE=/root/.cache/huggingface/hub \
+    HF_HOME=/root/.cache/huggingface
 
 # Install system dependencies:
 # - curl & ca-certificates
@@ -80,6 +82,23 @@ COPY ml/ ./ml/
 RUN ln -s /app/services/model-service /app/services/model_service && \
     ln -s /app/services/execution-runner /app/services/execution_runner && \
     mkdir -p /app/database
+
+# Pre-cache Salesforce/codet5-small model weights in HuggingFace cache during image build
+RUN python -c "from transformers import AutoTokenizer, AutoModelForSeq2SeqLM; \
+    AutoTokenizer.from_pretrained('Salesforce/codet5-small'); \
+    AutoModelForSeq2SeqLM.from_pretrained('Salesforce/codet5-small')"
+
+# Pre-train / fine-tune CodeT5 small directly during Docker build so the fine-tuned checkpoint exists on disk
+RUN python ml/training/train_seq2seq.py \
+    --model_name_or_path Salesforce/codet5-small \
+    --train_file ml/data/train.json \
+    --val_file ml/data/val.json \
+    --source_lang python \
+    --target_lang java \
+    --output_dir /app/checkpoints/codet5-small-finetuned \
+    --epochs 5 \
+    --batch_size 4 \
+    --learning_rate 2e-4
 
 # Copy and setup entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh

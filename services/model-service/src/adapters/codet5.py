@@ -22,19 +22,35 @@ class CodeT5Adapter(TranslationModelAdapter):
             return True
         self.device = device
         try:
-            is_local = os.path.exists(self.meta.checkpoint)
+            target_checkpoint = self.meta.checkpoint
+            is_local = os.path.exists(target_checkpoint)
+            
+            # If checkpoint path was local but directory is missing on container filesystem
+            if not is_local and (target_checkpoint.startswith(".") or target_checkpoint.startswith("/")):
+                # Check alternative /app path
+                alt = os.path.join("/app", target_checkpoint.lstrip("./"))
+                if os.path.exists(alt):
+                    target_checkpoint = alt
+                    is_local = True
+                else:
+                    # Fallback cleanly to pre-cached base Hugging Face checkpoint
+                    target_checkpoint = "Salesforce/codet5-small"
+                    self.meta.limitations.append(f"Local checkpoint {self.meta.checkpoint} not present on disk; defaulted to {target_checkpoint}")
+
             rev = None if is_local or self.meta.revision in ["main", "finetuned-v1"] else self.meta.revision
             self.tokenizer = AutoTokenizer.from_pretrained(
-                self.meta.checkpoint,
+                target_checkpoint,
                 revision=rev
             )
             self.model = AutoModelForSeq2SeqLM.from_pretrained(
-                self.meta.checkpoint,
-                revision=rev
+                target_checkpoint,
+                revision=rev,
+                low_cpu_mem_usage=True
             )
             self.model.to(self.device)
             self.model.eval()
             self.is_loaded = True
+            self.meta.status = "AVAILABLE"
             return True
         except Exception as e:
             self.is_loaded = False
@@ -89,6 +105,7 @@ class CodeT5Adapter(TranslationModelAdapter):
     ) -> TranslateResponse:
         if not self.is_loaded:
             if not self.load(self.device):
+                err_msg = "; ".join(self.meta.limitations) if self.meta.limitations else "unknown error"
                 return TranslateResponse(
                     modelId=self.meta.id,
                     status="MODEL_UNAVAILABLE",
@@ -97,7 +114,7 @@ class CodeT5Adapter(TranslationModelAdapter):
                     generationConfig=generation_config.model_dump(),
                     checkpointRevision=self.meta.revision,
                     deviceUsed=self.device,
-                    error=f"Model {self.meta.id} is not loaded or could not be loaded."
+                    error=f"Model {self.meta.id} load failed: {err_msg}"
                 )
 
         prompt = self._format_input(source_code, source_language, target_language)

@@ -164,12 +164,12 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ job, onStartRepair }) 
               >
                 <CheckCircle2 className="w-3.5 h-3.5" /> Test Outcomes ({activeRun.passedTestsCount}/{activeRun.totalTestsCount})
               </button>
-              {activeRun.compilerDiagnostics && (
+              {(activeRun.compilerDiagnostics || activeRun.runtimeDiagnostics) && (
                 <button
                   onClick={() => setActiveTab('diagnostics')}
                   className={`h-full border-b-2 flex items-center gap-1.5 transition-colors ${activeTab === 'diagnostics' ? 'border-rose-400 text-rose-300 font-medium' : 'border-transparent text-rose-400/70 hover:text-rose-300'}`}
                 >
-                  <Terminal className="w-3.5 h-3.5" /> Compiler Diagnostics
+                  <Terminal className="w-3.5 h-3.5" /> {activeRun.compilerDiagnostics ? 'Compiler Diagnostics' : 'Diagnostics'}
                 </button>
               )}
             </div>
@@ -198,6 +198,12 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ job, onStartRepair }) 
               {/* View 1: Generated Code */}
               {activeTab === 'code' && (
                 <div className="space-y-2">
+                  {activeRun.status === 'MODEL_UNAVAILABLE' && activeRun.runtimeDiagnostics && (
+                    <div className="p-3 rounded bg-amber-950/20 border border-amber-900/50 text-xs font-mono text-amber-300">
+                      <div className="font-semibold text-amber-400 mb-1">Model Inference Diagnostic:</div>
+                      <div>{activeRun.runtimeDiagnostics}</div>
+                    </div>
+                  )}
                   <div className="flex items-center justify-between text-xs font-mono text-text-tertiary">
                     <span>Target Candidate ({job.targetLanguage.toUpperCase()})</span>
                     <span>Tokens Extracted Successfully</span>
@@ -261,10 +267,10 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ job, onStartRepair }) 
               )}
 
               {/* View 4: Diagnostics */}
-              {(activeTab === 'diagnostics' || activeRun.compilerDiagnostics) && (
+              {(activeTab === 'diagnostics' || activeRun.compilerDiagnostics || activeRun.runtimeDiagnostics) && (
                 <div className="p-3 rounded bg-rose-950/20 border border-rose-900/40 text-xs font-mono space-y-2">
                   <div className="flex items-center gap-2 text-rose-400 font-semibold text-xs">
-                    <Terminal className="w-4 h-4" /> Real javac Compiler Diagnostics
+                    <Terminal className="w-4 h-4" /> {activeRun.compilerDiagnostics ? 'Real javac Compiler Diagnostics' : 'System & Runtime Diagnostics'}
                   </div>
                   <pre className="p-2.5 rounded bg-black/60 text-rose-200 text-[11px] overflow-x-auto whitespace-pre-wrap font-mono">
                     {activeRun.compilerDiagnostics || activeRun.runtimeDiagnostics || 'No diagnostics recorded'}
