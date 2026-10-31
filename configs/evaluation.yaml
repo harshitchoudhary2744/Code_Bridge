@@ -1,0 +1,48 @@
+# TransCode Lab - Evaluation & Differential Test Policies
+
+evaluation:
+  timeoutSeconds: 5
+  maxOutputBytes: 65536
+  strictOutputComparison: true
+  floatTolerance: 1e-6
+  preserveListOrder: true
+  repair:
+    defaultMaxAttempts: 3
+    maxFeedbackDiagnosticBytes: 4096
+    detectRepeatedCandidates: true
+
+gates:
+  - id: "generation"
+    name: "Generation Gate"
+    description: "Model produced output tokens and Candidate could be safely extracted"
+  - id: "syntax"
+    name: "Syntax Gate"
+    description: "Candidate parsed cleanly by language parser/AST"
+  - id: "compilation"
+    name: "Compilation Gate"
+    description: "Target code compiled cleanly with language compiler (e.g. javac for Java)"
+  - id: "source_baseline"
+    name: "Source Baseline Gate"
+    description: "Source code executed on test contract inputs without crashing"
+  - id: "target_execution"
+    name: "Target Execution Gate"
+    description: "Candidate executed in isolated sandbox without runtime exception"
+  - id: "behavioral"
+    name: "Behavioral Differential Gate"
+    description: "Target output matches source/expected output on all evaluated test inputs"
+
+statusOrder:
+  - "QUEUED"
+  - "GENERATING"
+  - "GENERATION_FAILED"
+  - "SYNTAX_FAILED"
+  - "COMPILE_FAILED"
+  - "SOURCE_BASELINE_FAILED"
+  - "EXECUTION_FAILED"
+  - "FAILED_BEHAVIORAL_TESTS"
+  - "PARTIAL_EVIDENCE"
+  - "PASSED_AVAILABLE_TESTS"
+  - "UNSUPPORTED"
+  - "MODEL_UNAVAILABLE"
+  - "NOT_RUN"
+

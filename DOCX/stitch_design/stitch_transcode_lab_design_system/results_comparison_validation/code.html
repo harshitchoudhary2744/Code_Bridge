@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary":"#a4c9ff","error-container":"#93000a","background":"#0c1322","on-tertiary-fixed":"#002113","on-surface":"#dce2f7","on-secondary-fixed":"#001c39","surface-container":"#191f2f","tertiary-container":"#00a572","on-primary":"#002e6a","secondary-container":"#0267b8","on-tertiary-fixed-variant":"#005236","on-secondary":"#00315d","surface-container-high":"#232a3a","primary-fixed":"#d8e2ff","inverse-on-surface":"#293040","surface-dim":"#0c1322","secondary-fixed-dim":"#a4c9ff","on-tertiary":"#003824","on-primary-fixed":"#001a42","tertiary-fixed":"#6ffbbe","surface-container-lowest":"#070e1d","outline":"#8c909f","primary":"#adc6ff","tertiary-fixed-dim":"#4edea3","on-tertiary-container":"#00311f","primary-fixed-dim":"#adc6ff","surface-tint":"#adc6ff","on-primary-container":"#00285d","on-secondary-container":"#d6e5ff","on-error-container":"#ffdad6","outline-variant":"#424754","on-primary-fixed-variant":"#004395","primary-container":"#4d8eff","surface":"#0c1322","surface-bright":"#323949","surface-variant":"#2e3545","on-secondary-fixed-variant":"#004883","on-surface-variant":"#c2c6d6","tertiary":"#4edea3","error":"#ffb4ab","secondary-fixed":"#d4e3ff","on-background":"#dce2f7","inverse-surface":"#dce2f7","surface-container-low":"#141b2b","surface-container-highest":"#2e3545","on-error":"#690005","inverse-primary":"#005ac2"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"0.75rem","space-xl":"1rem","space-md":"0.5rem","space-2xl":"1.5rem","space-lg":"0.75rem","gutter":"0.5rem","space-xs":"0.125rem","space-sm":"0.25rem","gutter-loose":"0.75rem","margin-panel":"0.5rem"},fontFamily:{"headline-sm":["Inter"],"body-default":["Inter"],"code-sm":["JetBrains Mono"],"code-default":["JetBrains Mono"],"label-default":["JetBrains Mono"],"headline-lg":["Inter"],"code-lg":["JetBrains Mono"],"body-compact":["Inter"],"label-compact":["JetBrains Mono"],"headline-xl":["Inter"]},fontSize:{"headline-sm":["1rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"body-default":["0.875rem",{"lineHeight":"1.375rem","fontWeight":"400"}],"code-sm":["0.75rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"code-default":["0.8125rem",{"lineHeight":"1.375rem","fontWeight":"400"}],"label-default":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.02em","fontWeight":"500"}],"headline-lg":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"code-lg":["0.875rem",{"lineHeight":"1.5rem","fontWeight":"400"}],"body-compact":["0.8125rem",{"lineHeight":"1.25rem","fontWeight":"400"}],"label-compact":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.04em","fontWeight":"500"}],"headline-xl":["1.5rem",{"lineHeight":"2rem","letterSpacing":"-0.02em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-default text-body-default text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-xl flex items-center justify-between bg-surface-container-low"><div class="flex items-center gap-space-md min-w-0"><img alt="TransCode Lab Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdmcgBERGMplzfFsvtd8JRVbrPKQPDQZ2x2NOznGMnZvFnUpcVNYxMhUVRXeh3A_ENiNtZ1JJITLvnXe6Dt5lnFl1Ut9AsmgPts_xdcT6jquGYkS_07yORBs1JtXLKLHN_T5GYktCfkBoJ7If_FqVjsgRD_yd6Wuh1ETns0FE3qi41HSXU64PjP1u-ZAsHrNZACMLhh3v6f_JkxSytfySe7wVPKwfp8E0hk82FbEg"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight">TransCode Lab</span><span class="font-label-compact text-label-compact text-outline truncate">v1.4.2-research</span></div></div><span class="font-label-compact text-label-compact px-space-sm py-space-xs rounded bg-surface-container-high text-tertiary font-semibold">CORE</span></div><div class="px-space-md py-space-sm"><div class="px-space-md py-space-xs font-label-compact text-label-compact text-outline uppercase tracking-wider">Research Modules</div></div><nav class="flex flex-col px-space-md gap-space-xs" data-active-classes="bg-surface-container-high text-primary border-l-2 border-primary font-medium"><a class="flex items-center gap-space-md px-space-md py-space-md rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="workbench" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span class="font-body-compact text-body-compact">Workbench</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-md rounded transition-colors bg-surface-container-high text-primary border-l-2 border-primary font-medium" data-path="model-comparison" href="#"><span class="material-symbols-outlined text-[18px]">compare</span><span class="font-body-compact text-body-compact">Model Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-space-md rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="benchmark-lab" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span class="font-body-compact text-body-compact">Benchmark Lab</span></a><a class="flex items-center gap-space-md px-space-md py-space-md rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="translation-history" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span class="font-body-compact text-body-compact">Translation History</span></a><a class="flex items-center gap-space-md px-space-md py-space-md rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="model-registry" href="#"><span class="material-symbols-outlined text-[18px]">memory</span><span class="font-body-compact text-body-compact">Model Registry</span></a><a class="flex items-center gap-space-md px-space-md py-space-md rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="datasets-and-evaluation" href="#"><span class="material-symbols-outlined text-[18px]">database</span><span class="font-body-compact text-body-compact">Datasets &amp; Evaluation</span></a><a class="flex items-center gap-space-md px-space-md py-space-md rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-compact text-body-compact">Settings</span></a></nav></div><div class="p-space-md m-space-md rounded bg-surface-container-low flex flex-col gap-space-sm"><div class="flex items-center justify-between font-label-compact text-label-compact text-outline-variant uppercase tracking-wider pb-space-xs"><span class="flex items-center gap-space-xs text-outline"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>Telemetry Node</span><span class="font-code-sm text-code-sm text-outline">node-usw-4</span></div><div class="flex items-center justify-between"><span class="font-body-compact text-body-compact text-on-surface-variant">GPU Worker pool</span><span class="font-label-compact text-label-compact px-space-sm py-space-xs rounded bg-surface-container-high text-tertiary font-mono">4/4 Ready</span></div><div class="flex items-center justify-between"><span class="font-body-compact text-body-compact text-on-surface-variant">Sandbox Isolation</span><span class="font-label-compact text-label-compact px-space-sm py-space-xs rounded bg-surface-container-high text-secondary truncate max-w-[110px] text-right font-mono">Docker/seccomp</span></div><div class="flex items-center justify-between"><span class="font-body-compact text-body-compact text-on-surface-variant">Mem Footprint</span><span class="font-code-sm text-code-sm text-on-surface font-mono">4.2 GB</span></div></div></aside><div class="pl-64 min-h-screen flex flex-col bg-background"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md z-40 px-space-xl flex items-center justify-between select-none shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-lg min-w-0"><div class="flex items-center gap-space-sm font-label-default text-label-default text-outline truncate"><span class="material-symbols-outlined text-[18px] text-secondary">deployed_code</span><span class="text-on-surface-variant">workspace</span><span class="text-outline-variant">/</span><span class="text-on-surface font-semibold truncate">transcode-eval-v1</span></div><div class="hidden 2xl:flex items-center gap-space-sm pl-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-tertiary font-label-compact text-label-compact font-mono"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>Global API [14ms]</div><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-secondary font-label-compact text-label-compact font-mono">Model Service [3/4 Ready]</div><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-on-surface-variant font-label-compact text-label-compact font-mono">Sandbox [Docker OK · 42ms]</div><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-on-surface-variant font-label-compact text-label-compact font-mono">Kernels [Py3.11/Java17]</div></div></div><div class="flex items-center gap-space-md flex-shrink-0"><button class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-body-compact font-body-compact transition-colors"><span class="material-symbols-outlined text-[16px] text-outline">description</span><span>Docs</span></button><button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary text-on-primary hover:bg-primary-fixed text-body-compact font-headline-sm font-semibold transition-colors"><span class="material-symbols-outlined text-[16px]">play_arrow</span><span>Quick-run</span></button><button class="relative p-space-sm rounded bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary"></span></button><div class="h-5 w-px bg-outline-variant"></div><button class="flex items-center gap-space-sm px-space-md py-space-xs rounded bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="font-code-sm text-code-sm font-mono">prj-neural-trans</span><span class="material-symbols-outlined text-[16px]">unfold_more</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-14 flex-1 bg-background"><div class="flex flex-col w-full">
+<!-- TOP HEADER STRIP & METRICS BAR -->
+<section class="w-full bg-surface-container-low px-space-2xl py-space-xl flex flex-col gap-space-lg shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm font-label-compact text-label-compact text-outline uppercase tracking-wider">
+<span class="hover:text-primary cursor-pointer transition-colors">Workbench</span>
+<span>/</span>
+<span class="text-secondary font-mono">Run #TR-8821</span>
+<span>/</span>
+<span class="flex items-center gap-space-xs text-on-surface-variant font-mono">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>Python 3.11 → Java 17
+          </span>
+</div>
+<div class="flex items-baseline gap-space-md">
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Translation Results &amp; Differential Verification</h1>
+<span class="px-space-md py-space-xs rounded bg-surface-container font-label-compact text-label-compact text-tertiary font-mono">AST-VALIDATED</span>
+</div>
+</div>
+<!-- Quick Actions Group -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-compact text-body-compact transition-colors" id="btn-rerun">
+<span class="material-symbols-outlined text-[16px] text-secondary">refresh</span>
+<span>Re-run Comparison</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-compact text-body-compact transition-colors">
+<span class="material-symbols-outlined text-[16px] text-outline">data_object</span>
+<span>Export JSON</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-compact text-body-compact transition-colors">
+<span class="material-symbols-outlined text-[16px] text-outline">share</span>
+<span>Share Artifact</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-xs rounded bg-primary text-on-primary hover:bg-primary-fixed font-headline-sm text-body-compact font-semibold shadow-sm transition-all hover:scale-[1.01]">
+<span class="material-symbols-outlined text-[16px]">build_circle</span>
+<span>Launch Repair Experiment</span>
+</button>
+</div>
+</div>
+<!-- Telemetry Summary Cards Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-space-md pt-space-xs">
+<div class="p-space-md rounded bg-surface-container flex flex-col gap-space-xs">
+<span class="font-label-compact text-label-compact text-outline uppercase tracking-wider">Job Status</span>
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Completed</span>
+<span class="font-label-compact text-label-compact text-outline font-mono">100%</span>
+</div>
+</div>
+<div class="p-space-md rounded bg-surface-container flex flex-col gap-space-xs">
+<span class="font-label-compact text-label-compact text-outline uppercase tracking-wider">Evaluated Models</span>
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-secondary font-mono">2 / 2</span>
+<span class="font-label-compact text-label-compact px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono">Matched</span>
+</div>
+</div>
+<div class="col-span-2 p-space-md rounded bg-surface-container flex flex-col gap-space-xs">
+<span class="font-label-compact text-label-compact text-outline uppercase tracking-wider">Correctness Evidence</span>
+<div class="flex items-center gap-space-md font-mono text-body-compact">
+<span class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+            CodeT5+ (Pass)
+          </span>
+<span class="text-outline-variant">|</span>
+<span class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+            PLBART (Defect)
+          </span>
+</div>
+</div>
+<div class="p-space-md rounded bg-surface-container flex flex-col gap-space-xs">
+<span class="font-label-compact text-label-compact text-outline uppercase tracking-wider">Total Runtime</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-mono">1,180</span>
+<span class="font-label-compact text-label-compact text-outline font-mono">ms (total)</span>
+</div>
+</div>
+<div class="p-space-md rounded bg-surface-container flex flex-col gap-space-xs">
+<span class="font-label-compact text-label-compact text-outline uppercase tracking-wider">Isolation Node</span>
+<div class="flex items-center gap-space-xs text-secondary font-mono font-code-sm text-code-sm truncate">
+<span class="material-symbols-outlined text-[15px]">security</span>
+<span>seccomp/cgroup2</span>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN SIDE-BY-SIDE 2-COLUMN VIEWPORT -->
+<section class="w-full px-space-2xl py-space-xl grid grid-cols-1 xl:grid-cols-2 gap-space-xl">
+<!-- COLUMN 1: CodeT5+ 770M (Pass / Emerald) -->
+<div class="flex flex-col rounded-lg bg-surface-container-low shadow-md overflow-hidden transition-all">
+<!-- Col 1 Header -->
+<div class="p-space-lg bg-surface-container flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold truncate">CodeT5+ 770M</h2>
+<span class="px-space-sm py-space-xs rounded bg-surface-container-high text-outline font-label-compact text-label-compact">Salesforce Research</span>
+</div>
+<p class="font-code-sm text-code-sm text-outline font-mono mt-space-xs">Encoder-Decoder · Checkpoint: codet5p-770m-py-java</p>
+</div>
+<span class="px-space-md py-space-xs rounded bg-tertiary/10 text-tertiary font-label-compact text-label-compact font-mono uppercase tracking-wide flex items-center gap-space-xs flex-shrink-0">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+            PASSED ALL TESTS [4/4]
+          </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md font-mono text-label-compact text-label-compact text-on-surface-variant">
+<span class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-tertiary">timer</span>
+            Latency: <strong class="text-on-surface">432ms</strong>
+</span>
+<span class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-secondary">memory</span>
+            VRAM: <strong class="text-on-surface">3.2 GB</strong>
+</span>
+<span class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-outline">speed</span>
+            Tokens/sec: <strong class="text-on-surface">118 tok/s</strong>
+</span>
+</div>
+</div>
+<!-- Validation Pipeline Stepper / Stages -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex flex-col gap-space-sm">
+<div class="flex items-center justify-between font-label-compact text-label-compact text-outline uppercase tracking-wider">
+<span>Verification Pipeline Stages</span>
+<span class="text-tertiary font-mono">6/6 COMPLETE</span>
+</div>
+<div class="grid grid-cols-6 gap-space-xs text-center font-mono">
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Generation completed in 432ms">
+<span class="text-tertiary material-symbols-outlined text-[16px]">bolt</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Gen</span>
+<span class="text-[9px] text-outline">432ms</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Java Tree-Sitter AST Parse OK">
+<span class="text-tertiary material-symbols-outlined text-[16px]">account_tree</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Syntax</span>
+<span class="text-[9px] text-tertiary">OK</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="javac 17 compiler - 0 warnings">
+<span class="text-tertiary material-symbols-outlined text-[16px]">check_box</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">javac 17</span>
+<span class="text-[9px] text-tertiary">0 Warn</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Python 3.11 Original Ground-truth execution">
+<span class="text-tertiary material-symbols-outlined text-[16px]">code</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Py Base</span>
+<span class="text-[9px] text-tertiary">4/4 OK</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="JVM target runtime sandbox test suite">
+<span class="text-tertiary material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">JVM Sand</span>
+<span class="text-[9px] text-tertiary">4/4 OK</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Differential Output Agreement Verified">
+<span class="text-tertiary material-symbols-outlined text-[16px]">join_inner</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Oracle</span>
+<span class="text-[9px] text-tertiary">AGREE</span>
+</div>
+</div>
+</div>
+<!-- Code Viewer Toolbar -->
+<div class="px-space-md py-space-xs bg-surface-container flex items-center justify-between font-mono text-label-compact text-label-compact">
+<div class="flex items-center gap-space-sm text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-secondary">description</span>
+<span class="font-semibold">Solution.java</span>
+<span class="text-outline text-[11px]">(32 lines · 814 bytes)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Copy Raw Code">Copy</button>
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Inspect AST Tree">AST</button>
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="View Javap Bytecode">Bytecode</button>
+</div>
+</div>
+<!-- Monospace Code Editor Pane -->
+<div class="p-space-md bg-surface-container-lowest font-code-sm text-code-sm font-mono overflow-x-auto text-on-surface leading-relaxed max-h-[460px] select-text">
+<div class="flex gap-space-md">
+<div class="text-outline-variant select-none flex flex-col text-right w-6 font-mono text-code-sm">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="text-outline">// Synthesized by CodeT5+ (Binary search partition approach)</span><br/>
+<span class="text-secondary font-semibold">public class</span> <span class="text-tertiary">Solution</span> {<br/>
+              <span class="text-secondary font-semibold">public double</span> <span class="text-primary font-semibold">findMedianSortedArrays</span>(<span class="text-secondary font-semibold">int</span>[] nums1, <span class="text-secondary font-semibold">int</span>[] nums2) {<br/>
+                <span class="text-secondary font-semibold">if</span> (nums1.length &gt; nums2.length) <span class="text-secondary font-semibold">return</span> findMedianSortedArrays(nums2, nums1);<br/>
+                <span class="text-secondary font-semibold">int</span> m = nums1.length, n = nums2.length;<br/>
+                <span class="text-secondary font-semibold">int</span> imin = 0, imax = m, halfLen = (m + n + 1) / 2;<br/>
+                <span class="text-secondary font-semibold">while</span> (imin &lt;= imax) {<br/>
+                  <span class="text-secondary font-semibold">int</span> i = (imin + imax) / 2;<br/>
+                  <span class="text-secondary font-semibold">int</span> j = halfLen - i;<br/>
+                  <span class="text-secondary font-semibold">if</span> (i &lt; m &amp;&amp; nums2[j-1] &gt; nums1[i]) {<br/>
+                    imin = i + 1;<br/>
+                  } <span class="text-secondary font-semibold">else if</span> (i &gt; 0 &amp;&amp; nums1[i-1] &gt; nums2[j]) {<br/>
+                    imax = i - 1;<br/>
+                  } <span class="text-secondary font-semibold">else</span> {<br/>
+                    <span class="text-secondary font-semibold">int</span> maxLeft = (i == 0) ? nums2[j-1] : ((j == 0) ? nums1[i-1] : Math.max(nums1[i-1], nums2[j-1]));<br/>
+                    <span class="text-secondary font-semibold">if</span> ((m + n) % 2 == 1) <span class="text-secondary font-semibold">return</span> maxLeft;<br/>
+                    <span class="text-secondary font-semibold">int</span> minRight = (i == m) ? nums2[j] : ((j == n) ? nums1[i] : Math.min(nums1[i], nums2[j]));<br/>
+<div class="bg-tertiary/10 -mx-space-md px-space-md py-0.5 my-0.5 rounded">
+                    <span class="text-secondary font-semibold">return</span> (<span class="text-secondary font-semibold">double</span>)(maxLeft + minRight) / <span class="text-tertiary">2.0</span>; <span class="text-tertiary font-semibold">// Correct FP division</span>
+</div>
+                  }<br/>
+                }<br/>
+                <span class="text-secondary font-semibold">return</span> 0.0;<br/>
+              }<br/>
+            }
+          </div>
+</div>
+</div>
+<!-- Column 1 Footer Banner -->
+<div class="px-space-lg py-space-md bg-surface-container flex items-center justify-between text-body-compact font-body-compact">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span class="font-headline-sm font-semibold">4 / 4 Unit Tests Passed (100%)</span>
+</div>
+<span class="font-mono text-label-compact text-label-compact text-outline">Mean Exec Time: 1.84ms</span>
+</div>
+</div>
+<!-- COLUMN 2: PLBART-large 406M (Behavioral Failure / Crimson) -->
+<div class="flex flex-col rounded-lg bg-surface-container-low shadow-md overflow-hidden transition-all">
+<!-- Col 2 Header -->
+<div class="p-space-lg bg-surface-container flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold truncate">PLBART-large 406M</h2>
+<span class="px-space-sm py-space-xs rounded bg-surface-container-high text-outline font-label-compact text-label-compact">UCLA / Meta AI</span>
+</div>
+<p class="font-code-sm text-code-sm text-outline font-mono mt-space-xs">BART Architecture · Checkpoint: plbart-large-multilingual-v2</p>
+</div>
+<span class="px-space-md py-space-xs rounded bg-error/10 text-error font-label-compact text-label-compact font-mono uppercase tracking-wide flex items-center gap-space-xs flex-shrink-0">
+<span class="material-symbols-outlined text-[15px]">error</span>
+            BEHAVIORAL FAILURE [3/4 Tests]
+          </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md font-mono text-label-compact text-label-compact text-on-surface-variant">
+<span class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-tertiary">timer</span>
+            Latency: <strong class="text-on-surface">312ms</strong>
+</span>
+<span class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-secondary">memory</span>
+            VRAM: <strong class="text-on-surface">1.8 GB</strong>
+</span>
+<span class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-outline">speed</span>
+            Tokens/sec: <strong class="text-on-surface">144 tok/s</strong>
+</span>
+</div>
+</div>
+<!-- Validation Pipeline Stepper / Stages -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex flex-col gap-space-sm">
+<div class="flex items-center justify-between font-label-compact text-label-compact text-outline uppercase tracking-wider">
+<span>Verification Pipeline Stages</span>
+<span class="text-error font-mono">STAGE 5: DIVERGED</span>
+</div>
+<div class="grid grid-cols-6 gap-space-xs text-center font-mono">
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Generation completed in 312ms">
+<span class="text-tertiary material-symbols-outlined text-[16px]">bolt</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Gen</span>
+<span class="text-[9px] text-outline">312ms</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Java Tree-Sitter AST Parse OK">
+<span class="text-tertiary material-symbols-outlined text-[16px]">account_tree</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Syntax</span>
+<span class="text-[9px] text-tertiary">OK</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="javac 17 Clean compilation">
+<span class="text-tertiary material-symbols-outlined text-[16px]">check_box</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">javac 17</span>
+<span class="text-[9px] text-tertiary">Clean</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center gap-0.5" title="Python Baseline OK">
+<span class="text-tertiary material-symbols-outlined text-[16px]">code</span>
+<span class="font-label-compact text-[10px] text-on-surface leading-none">Py Base</span>
+<span class="text-[9px] text-tertiary">4/4 OK</span>
+</div>
+<div class="p-space-xs rounded bg-error/15 flex flex-col items-center gap-0.5" title="Target Sandbox JVM Failed test TC-02">
+<span class="text-error material-symbols-outlined text-[16px]">warning</span>
+<span class="font-label-compact text-[10px] text-error font-semibold leading-none">JVM Sand</span>
+<span class="text-[9px] text-error font-bold">1 Mismatch</span>
+</div>
+<div class="p-space-xs rounded bg-error/15 flex flex-col items-center gap-0.5" title="Differential Oracle Divergence Detected">
+<span class="text-error material-symbols-outlined text-[16px]">alt_route</span>
+<span class="font-label-compact text-[10px] text-error font-semibold leading-none">Oracle</span>
+<span class="text-[9px] text-error font-bold">DIVERGED</span>
+</div>
+</div>
+</div>
+<!-- Action Banner for Defect -->
+<div class="px-space-md py-space-sm bg-error-container text-on-error-container flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-[18px] text-error flex-shrink-0">report_problem</span>
+<span class="font-body-compact text-body-compact truncate">
+<strong>Semantic Defect:</strong> Integer division truncates <code>2.5</code> to <code>2.0</code>.
+          </span>
+</div>
+<button class="px-space-sm py-0.5 rounded bg-error text-on-error hover:opacity-90 font-label-compact text-label-compact uppercase tracking-wider font-semibold whitespace-nowrap transition-opacity">
+          Launch Repair
+        </button>
+</div>
+<!-- Code Viewer Toolbar -->
+<div class="px-space-md py-space-xs bg-surface-container flex items-center justify-between font-mono text-label-compact text-label-compact">
+<div class="flex items-center gap-space-sm text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-error">description</span>
+<span class="font-semibold">Solution.java</span>
+<span class="text-outline text-[11px]">(32 lines · 798 bytes)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Copy Raw Code">Copy</button>
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Inspect AST Tree">AST</button>
+<button class="px-space-sm py-0.5 rounded hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="View Javap Bytecode">Bytecode</button>
+</div>
+</div>
+<!-- Monospace Code Editor Pane with Semantic Bug Highlight -->
+<div class="p-space-md bg-surface-container-lowest font-code-sm text-code-sm font-mono overflow-x-auto text-on-surface leading-relaxed max-h-[460px] select-text">
+<div class="flex gap-space-md">
+<div class="text-outline-variant select-none flex flex-col text-right w-6 font-mono text-code-sm">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span class="text-error font-bold">19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="text-outline">// Synthesized by PLBART-large (Semantic division bug on L19)</span><br/>
+<span class="text-secondary font-semibold">public class</span> <span class="text-tertiary">Solution</span> {<br/>
+              <span class="text-secondary font-semibold">public double</span> <span class="text-primary font-semibold">findMedianSortedArrays</span>(<span class="text-secondary font-semibold">int</span>[] nums1, <span class="text-secondary font-semibold">int</span>[] nums2) {<br/>
+                <span class="text-secondary font-semibold">if</span> (nums1.length &gt; nums2.length) <span class="text-secondary font-semibold">return</span> findMedianSortedArrays(nums2, nums1);<br/>
+                <span class="text-secondary font-semibold">int</span> m = nums1.length, n = nums2.length;<br/>
+                <span class="text-secondary font-semibold">int</span> imin = 0, imax = m, halfLen = (m + n + 1) / 2;<br/>
+                <span class="text-secondary font-semibold">while</span> (imin &lt;= imax) {<br/>
+                  <span class="text-secondary font-semibold">int</span> i = (imin + imax) / 2;<br/>
+                  <span class="text-secondary font-semibold">int</span> j = halfLen - i;<br/>
+                  <span class="text-secondary font-semibold">if</span> (i &lt; m &amp;&amp; nums2[j-1] &gt; nums1[i]) {<br/>
+                    imin = i + 1;<br/>
+                  } <span class="text-secondary font-semibold">else if</span> (i &gt; 0 &amp;&amp; nums1[i-1] &gt; nums2[j]) {<br/>
+                    imax = i - 1;<br/>
+                  } <span class="text-secondary font-semibold">else</span> {<br/>
+                    <span class="text-secondary font-semibold">int</span> maxLeft = (i == 0) ? nums2[j-1] : ((j == 0) ? nums1[i-1] : Math.max(nums1[i-1], nums2[j-1]));<br/>
+                    <span class="text-secondary font-semibold">if</span> ((m + n) % 2 == 1) <span class="text-secondary font-semibold">return</span> maxLeft;<br/>
+                    <span class="text-secondary font-semibold">int</span> minRight = (i == m) ? nums2[j] : ((j == n) ? nums1[i] : Math.min(nums1[i], nums2[j]));<br/>
+<div class="bg-error/20 -mx-space-md px-space-md py-0.5 my-0.5 rounded text-error flex items-center justify-between">
+<span>        <span class="text-secondary font-semibold">return</span> (maxLeft + minRight) / <span class="text-error font-bold underline">2</span>;</span>
+<span class="text-[11px] font-sans font-bold bg-error text-on-error px-1.5 rounded">DEFECT: Truncated int</span>
+</div>
+                  }<br/>
+                }<br/>
+                <span class="text-secondary font-semibold">return</span> 0.0;<br/>
+              }<br/>
+            }
+          </div>
+</div>
+</div>
+<!-- Column 2 Footer Banner -->
+<div class="px-space-lg py-space-md bg-surface-container flex items-center justify-between text-body-compact font-body-compact">
+<div class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span class="font-headline-sm font-semibold">3 / 4 Tests Passed (75% Semantic Precision)</span>
+</div>
+<span class="font-mono text-label-compact text-label-compact text-outline">Failed on TC-02</span>
+</div>
+</div>
+</section>
+<!-- BOTTOM TEST RESULT COMPARISON MATRIX & DIAGNOSTICS -->
+<section class="w-full px-space-2xl pb-space-2xl flex flex-col gap-space-md">
+<!-- Tab Controls & Filter Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded bg-surface-container-low">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-space-xs rounded bg-surface-container-high text-primary font-headline-sm text-body-compact font-medium transition-colors" id="tab-oracle">
+          Test Oracle Matrix (4)
+        </button>
+<button class="px-space-md py-space-xs rounded text-outline hover:text-on-surface hover:bg-surface-container font-headline-sm text-body-compact transition-colors" id="tab-tokens">
+          Token-Level Diffs
+        </button>
+<button class="px-space-md py-space-xs rounded text-outline hover:text-on-surface hover:bg-surface-container font-headline-sm text-body-compact transition-colors" id="tab-sandbox">
+          Sandbox JVM Log Output
+        </button>
+</div>
+<div class="flex items-center gap-space-sm font-label-compact text-label-compact">
+<span class="text-outline uppercase">Filter:</span>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-highest text-on-surface font-mono">All (4)</button>
+<button class="px-space-sm py-0.5 rounded text-tertiary hover:bg-surface-container font-mono">Passing (3)</button>
+<button class="px-space-sm py-0.5 rounded text-error hover:bg-surface-container font-mono">Failing (1)</button>
+<button class="px-space-sm py-0.5 rounded text-secondary hover:bg-surface-container font-mono">Diagnostic View</button>
+</div>
+</div>
+<!-- Test Oracle Comparison Table Container -->
+<div class="rounded-lg bg-surface-container-low shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono text-code-sm border-collapse">
+<thead>
+<tr class="bg-surface-container text-outline font-label-compact text-label-compact uppercase tracking-wider">
+<th class="px-space-md py-space-md font-semibold">Test ID</th>
+<th class="px-space-md py-space-md font-semibold">Input Parameters</th>
+<th class="px-space-md py-space-md font-semibold text-right">Expected (Py 3.11)</th>
+<th class="px-space-md py-space-md font-semibold text-right">CodeT5+ Output</th>
+<th class="px-space-md py-space-md font-semibold text-right">PLBART Output</th>
+<th class="px-space-md py-space-md font-semibold text-center">Oracle Result</th>
+<th class="px-space-md py-space-md font-semibold">Diagnostic Notes</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/40 text-on-surface">
+<!-- Row 1 (Pass) -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-space-md py-space-md font-bold text-secondary">TC-01</td>
+<td class="px-space-md py-space-md text-on-surface-variant font-code-sm">nums1=[1,3], nums2=[2]</td>
+<td class="px-space-md py-space-md text-right font-bold">2.0</td>
+<td class="px-space-md py-space-md text-right text-tertiary">2.0 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-right text-tertiary">2.0 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-center">
+<span class="px-space-sm py-0.5 rounded bg-tertiary/10 text-tertiary text-label-compact font-semibold">MATCH</span>
+</td>
+<td class="px-space-md py-space-md text-outline font-sans text-body-compact">Both outputs agree with Python baseline return.</td>
+</tr>
+<!-- Row 2 (EXPANDED DEFECT ROW) -->
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors">
+<td class="px-space-md py-space-md font-bold text-error flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-error">priority_high</span>
+                TC-02
+              </td>
+<td class="px-space-md py-space-md font-bold text-on-surface font-code-sm">nums1=[1,2], nums2=[3,4]</td>
+<td class="px-space-md py-space-md text-right font-bold text-on-surface">2.5</td>
+<td class="px-space-md py-space-md text-right text-tertiary font-bold">2.5 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-right text-error font-bold">2.0 <span class="text-[10px] text-error font-sans">✗</span></td>
+<td class="px-space-md py-space-md text-center">
+<span class="px-space-sm py-0.5 rounded bg-error/20 text-error text-label-compact font-bold uppercase tracking-wide">DIVERGED</span>
+</td>
+<td class="px-space-md py-space-md font-sans text-body-compact text-on-error-container">
+<span class="font-semibold text-error">Semantic Loss:</span> Truncated integer division <code>(a+b)/2</code> dropped remainder <code>.5</code>. Requires cast to <code>(double)</code>.
+              </td>
+</tr>
+<!-- Row 3 (Pass) -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-space-md py-space-md font-bold text-secondary">TC-03 <span class="text-[10px] text-outline font-normal">(Edge)</span></td>
+<td class="px-space-md py-space-md text-on-surface-variant font-code-sm">nums1=[], nums2=[1]</td>
+<td class="px-space-md py-space-md text-right font-bold">1.0</td>
+<td class="px-space-md py-space-md text-right text-tertiary">1.0 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-right text-tertiary">1.0 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-center">
+<span class="px-space-sm py-0.5 rounded bg-tertiary/10 text-tertiary text-label-compact font-semibold">MATCH</span>
+</td>
+<td class="px-space-md py-space-md text-outline font-sans text-body-compact">Empty array boundary condition safely handled by both models.</td>
+</tr>
+<!-- Row 4 (Pass) -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-space-md py-space-md font-bold text-secondary">TC-04 <span class="text-[10px] text-outline font-normal">(Edge)</span></td>
+<td class="px-space-md py-space-md text-on-surface-variant font-code-sm">nums1=[0,0], nums2=[0,0]</td>
+<td class="px-space-md py-space-md text-right font-bold">0.0</td>
+<td class="px-space-md py-space-md text-right text-tertiary">0.0 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-right text-tertiary">0.0 <span class="text-[10px] text-tertiary font-sans">✓</span></td>
+<td class="px-space-md py-space-md text-center">
+<span class="px-space-sm py-0.5 rounded bg-tertiary/10 text-tertiary text-label-compact font-semibold">MATCH</span>
+</td>
+<td class="px-space-md py-space-md text-outline font-sans text-body-compact">Identical zeroes test correctly evaluates to neutral median.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Quick AST Semantic Comparison Mini-Widget -->
+<div class="p-space-lg bg-surface-container-high/40 flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="p-space-sm rounded bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">AST Grammar Node Divergence</span>
+<span class="font-body-compact text-body-compact text-on-surface-variant">Tree-Sitter flagged 1 semantic sub-expression mismatch at node <code class="text-secondary font-mono">BinaryExpression[DIV]</code></span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm font-mono text-label-compact text-label-compact">
+<span class="px-space-md py-space-xs rounded bg-surface-container text-tertiary font-semibold">CodeT5+: (CastExpression [double] / 2.0)</span>
+<span class="text-outline">≠</span>
+<span class="px-space-md py-space-xs rounded bg-surface-container text-error font-semibold">PLBART: (BinaryExpression / 2)</span>
+</div>
+</div>
+</div>
+<!-- SCIENTIFIC DISCLAIMER CALLOUT -->
+<div class="p-space-md rounded bg-surface-container-low flex items-start gap-space-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary flex-shrink-0 mt-0.5">info</span>
+<p class="font-body-compact text-body-compact italic">
+<strong>Formal Verification Note:</strong> Passing a finite test suite provides empirical evidence of behavioral agreement, not formal proof of semantic equivalence across all domain inputs. Automated SMT-based symbolic equivalence check is scheduled for nightly verification.
+      </p>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interactions for Workbench rerun button
+  const rerunBtn = document.getElementById('btn-rerun');
+  if (rerunBtn) {
+    rerunBtn.addEventListener('click', () => {
+      const origText = rerunBtn.innerHTML;
+      rerunBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-secondary animate-spin">sync</span><span>Evaluating sandbox...</span>';
+      rerunBtn.classList.add('opacity-75');
+      setTimeout(() => {
+        rerunBtn.innerHTML = origText;
+        rerunBtn.classList.remove('opacity-75');
+      }, 700);
+    });
+  }
+
+  // Interactive tab toggle handler for comparison matrix
+  const tabs = [
+    { btn: document.getElementById('tab-oracle'), active: true },
+    { btn: document.getElementById('tab-tokens'), active: false },
+    { btn: document.getElementById('tab-sandbox'), active: false }
+  ];
+
+  tabs.forEach(item => {
+    if (item.btn) {
+      item.btn.addEventListener('click', () => {
+        tabs.forEach(t => {
+          if (t.btn) {
+            t.btn.className = 'px-space-md py-space-xs rounded text-outline hover:text-on-surface hover:bg-surface-container font-headline-sm text-body-compact transition-colors';
+          }
+        });
+        item.btn.className = 'px-space-md py-space-xs rounded bg-surface-container-high text-primary font-headline-sm text-body-compact font-medium transition-colors';
+      });
+    }
+  });
+</script></main></div></body></html>

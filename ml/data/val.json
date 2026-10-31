@@ -1,0 +1,26 @@
+[
+  {
+    "source": "def add(a: int, b: int) -> int:\n    return a + b",
+    "target": "public class Solution {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n}"
+  },
+  {
+    "source": "public class Solution {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n}",
+    "target": "def add(a: int, b: int) -> int:\n    return a + b"
+  },
+  {
+    "source": "def isPrime(n: int) -> bool:\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+    "target": "public class Solution {\n    public static boolean isPrime(int n) {\n        if (n <= 1) {\n            return false;\n        }\n        if (n <= 3) {\n            return true;\n        }\n        if (n % 2 == 0 || n % 3 == 0) {\n            return false;\n        }\n        int i = 5;\n        while (i * i <= n) {\n            if (n % i == 0 || n % (i + 2) == 0) {\n                return false;\n            }\n            i += 6;\n        }\n        return true;\n    }\n}"
+  },
+  {
+    "source": "public class Solution {\n    public static boolean isPrime(int n) {\n        if (n <= 1) {\n            return false;\n        }\n        if (n <= 3) {\n            return true;\n        }\n        if (n % 2 == 0 || n % 3 == 0) {\n            return false;\n        }\n        int i = 5;\n        while (i * i <= n) {\n            if (n % i == 0 || n % (i + 2) == 0) {\n                return false;\n            }\n            i += 6;\n        }\n        return true;\n    }\n}",
+    "target": "def isPrime(n: int) -> bool:\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True"
+  },
+  {
+    "source": "def countVowels(s: str) -> int:\n    vowels = set('aeiouAEIOU')\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count",
+    "target": "public class Solution {\n    public static int countVowels(String s) {\n        if (s == null) return 0;\n        int count = 0;\n        String vowels = \"aeiouAEIOU\";\n        for (int i = 0; i < s.length(); i++) {\n            if (vowels.indexOf(s.charAt(i)) != -1) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
+  },
+  {
+    "source": "public class Solution {\n    public static int countVowels(String s) {\n        if (s == null) return 0;\n        int count = 0;\n        String vowels = \"aeiouAEIOU\";\n        for (int i = 0; i < s.length(); i++) {\n            if (vowels.indexOf(s.charAt(i)) != -1) {\n                count++;\n            }\n        }\n        return count;\n    }\n}",
+    "target": "def countVowels(s: str) -> int:\n    vowels = set('aeiouAEIOU')\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count"
+  }
+]

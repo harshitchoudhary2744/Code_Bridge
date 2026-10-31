@@ -1,0 +1,39 @@
+{
+  "manifestVersion": "1.0.0",
+  "auditedDatasets": [
+    {
+      "id": "transcode-lab-curated-v1",
+      "name": "TransCode Lab Curated Evaluation Set",
+      "languages": ["python", "java"],
+      "pythonVersion": "3.11",
+      "javaVersion": "17",
+      "totalProblems": 8,
+      "totalTestCases": 34,
+      "provenance": "Handcrafted and cross-validated parallel functions with deterministic test harnesses",
+      "license": "MIT",
+      "status": "ACTIVE_BENCHMARK",
+      "leakageProtection": "Held out exclusively for model comparison; zero overlap with training splits"
+    },
+    {
+      "id": "codexglue-code2code-translation",
+      "name": "CodeXGLUE Code-to-Code Translation",
+      "languages": ["java", "csharp"],
+      "totalProblems": 11800,
+      "provenance": "Microsoft CodeXGLUE (Lu et al., 2021)",
+      "license": "MIT",
+      "status": "AUDITED_REFERENCE_ONLY",
+      "auditNote": "CodeXGLUE official code translation is Java <-> C#, NOT Python <-> Java. Excluded from Python<->Java track to maintain research honesty."
+    },
+    {
+      "id": "transcoder-gfg",
+      "name": "TransCoder GeeksforGeeks Evaluation Benchmark",
+      "languages": ["python", "java", "cpp"],
+      "totalProblems": 477,
+      "provenance": "Meta AI / Roziere et al. (NeurIPS 2020)",
+      "license": "CC-BY-NC-4.0",
+      "status": "SUPPORTED_FOR_EXTERNAL_BENCHMARK",
+      "auditNote": "Includes unit test inputs per problem; requires non-commercial attribution."
+    }
+  ]
+}
+

@@ -1,0 +1,163 @@
+# TransCode Lab - Model Registry Configuration
+# Authoritative definitions of model candidates, checkpoints, licensing, and readiness
+
+models:
+  - id: "salesforce-codet5-finetuned"
+    displayName: "CodeT5 Small (Fine-Tuned Seq2Seq)"
+    publisher: "Salesforce Research / TransCode Lab"
+    family: "CodeT5"
+    architecture: "encoder-decoder"
+    checkpoint: "./checkpoints/codet5-small-finetuned"
+    revision: "finetuned-v1"
+    tokenizer: "./checkpoints/codet5-small-finetuned"
+    tokenizerClass: "RobertaTokenizerFast"
+    license: "BSD-3-Clause"
+    licenseUrl: "https://huggingface.co/Salesforce/codet5-small/blob/main/LICENSE"
+    paperUrl: "https://aclanthology.org/2021.emnlp-main.685/"
+    supportedTasks:
+      - "code-to-code"
+    supportedLanguages:
+      - "python"
+      - "java"
+    parameterCount: 60492288
+    deviceRequirements:
+      device: "cpu"
+      minMemoryMb: 512
+    status: "AVAILABLE"
+    fineTuningStatus: "TASK_FINETUNED"
+    limitations: []
+
+  - id: "salesforce-codet5-small"
+    displayName: "CodeT5 Small (60M)"
+    publisher: "Salesforce Research"
+    family: "CodeT5"
+    architecture: "encoder-decoder"
+    checkpoint: "Salesforce/codet5-small"
+    revision: "b1ee9570c289f21b5922b9c768a1ce12957bf968"
+    tokenizer: "Salesforce/codet5-small"
+    tokenizerClass: "RobertaTokenizerFast"
+    license: "BSD-3-Clause"
+    licenseUrl: "https://huggingface.co/Salesforce/codet5-small/blob/main/LICENSE"
+    paperUrl: "https://aclanthology.org/2021.emnlp-main.685/"
+    supportedTasks:
+      - "code-to-code"
+    supportedLanguages:
+      - "python"
+      - "java"
+    parameterCount: 60492288
+    deviceRequirements:
+      device: "cpu"
+      minMemoryMb: 512
+    status: "AVAILABLE"
+    fineTuningStatus: "PRETRAINED_ONLY"
+    limitations:
+      - "Pretrained-only baseline requires translation fine-tuning for valid multi-line target code"
+      - "Generates minimal or punctuation tokens on raw un-tuned prompt"
+
+  - id: "salesforce-codet5-base"
+    displayName: "CodeT5 Base (220M)"
+    publisher: "Salesforce Research"
+    family: "CodeT5"
+    architecture: "encoder-decoder"
+    checkpoint: "Salesforce/codet5-base"
+    revision: "02cd2d31bb7c6d0e4d91156167b2de044989c733"
+    tokenizer: "Salesforce/codet5-base"
+    tokenizerClass: "RobertaTokenizerFast"
+    license: "BSD-3-Clause"
+    licenseUrl: "https://huggingface.co/Salesforce/codet5-base/blob/main/LICENSE"
+    paperUrl: "https://aclanthology.org/2021.emnlp-main.685/"
+    supportedTasks:
+      - "code-to-code"
+    supportedLanguages:
+      - "python"
+      - "java"
+    parameterCount: 222882048
+    deviceRequirements:
+      device: "cpu"
+      minMemoryMb: 1024
+    status: "AVAILABLE"
+    fineTuningStatus: "PRETRAINED_ONLY"
+    limitations:
+      - "Higher memory footprint; CPU inference latency is ~2-3x codet5-small"
+      - "Requires fine-tuning for high syntactic target compliance"
+
+  - id: "uclanlp-plbart-base"
+    displayName: "PLBART Base (140M)"
+    publisher: "UCLA / Columbia NLP"
+    family: "PLBART"
+    architecture: "encoder-decoder"
+    checkpoint: "uclanlp/plbart-base"
+    revision: "main"
+    tokenizer: "uclanlp/plbart-base"
+    tokenizerClass: "PLBartTokenizer"
+    license: "MIT"
+    licenseUrl: "https://huggingface.co/uclanlp/plbart-base/blob/main/LICENSE"
+    paperUrl: "https://aclanthology.org/2021.naacl-main.211/"
+    supportedTasks:
+      - "code-to-code"
+    supportedLanguages:
+      - "python"
+      - "java"
+    parameterCount: 139220736
+    deviceRequirements:
+      device: "cpu"
+      minMemoryMb: 768
+    status: "AVAILABLE"
+    fineTuningStatus: "PRETRAINED_ONLY"
+    limitations:
+      - "Pretrained on masked denoising across languages; tends to copy/reconstruct input when un-finetuned"
+      - "Requires SentencePiece binary installation"
+
+  - id: "salesforce-codet5p-220m"
+    displayName: "CodeT5+ 220M"
+    publisher: "Salesforce Research"
+    family: "CodeT5+"
+    architecture: "encoder-decoder"
+    checkpoint: "Salesforce/codet5p-220m"
+    revision: "main"
+    tokenizer: "Salesforce/codet5p-220m"
+    tokenizerClass: "RobertaTokenizerFast"
+    license: "BSD-3-Clause"
+    licenseUrl: "https://github.com/salesforce/CodeT5/blob/main/LICENSE"
+    paperUrl: "https://github.com/salesforce/CodeT5/tree/main/CodeT5+"
+    supportedTasks:
+      - "code-to-code"
+    supportedLanguages:
+      - "python"
+      - "java"
+    parameterCount: 222882048
+    deviceRequirements:
+      device: "cpu"
+      minMemoryMb: 1024
+    status: "DOWNLOAD_REQUIRED"
+    fineTuningStatus: "PRETRAINED_ONLY"
+    limitations:
+      - "Requires checkpoint download before execution"
+
+  - id: "facebook-transcoder"
+    displayName: "TransCoder (Unsupervised Seq2Seq)"
+    publisher: "Meta / Facebook AI Research"
+    family: "TransCoder"
+    architecture: "encoder-decoder"
+    checkpoint: "facebookresearch/TransCoder"
+    revision: "NeurIPS-2020"
+    tokenizer: "Custom XLM FastBPE"
+    tokenizerClass: "XLMTokenizer"
+    license: "CC-BY-NC-4.0"
+    licenseUrl: "https://github.com/facebookresearch/TransCoder/blob/main/LICENSE"
+    paperUrl: "https://proceedings.neurips.cc/paper/2020/hash/ed23fbf18c2cd35f8c7f8de44f85c08d-Abstract.html"
+    supportedTasks:
+      - "code-to-code"
+    supportedLanguages:
+      - "python"
+      - "java"
+    parameterCount: 410000000
+    deviceRequirements:
+      device: "cuda"
+      minMemoryMb: 4096
+    status: "INCOMPATIBLE"
+    fineTuningStatus: "PRETRAINED_ONLY"
+    limitations:
+      - "Incompatible with Hugging Face AutoModelForSeq2SeqLM pipeline"
+      - "Requires legacy PyTorch 1.x binaries, apex, and external C++ fastBPE builds"
+

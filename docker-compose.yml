@@ -1,0 +1,57 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:4000/api/v1
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - DATABASE_PATH=/app/database/transcode.sqlite
+      - MODEL_SERVICE_URL=http://model-service:8000
+      - EXECUTION_RUNNER_URL=http://execution-runner:5000
+      - CORS_ORIGIN=http://localhost:5173
+    volumes:
+      - sqlite_data:/app/database
+    depends_on:
+      - model-service
+      - execution-runner
+
+  model-service:
+    build:
+      context: .
+      dockerfile: services/model-service/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_SERVICE_PORT=8000
+      - DEFAULT_DEVICE=cpu
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+
+  execution-runner:
+    build:
+      context: .
+      dockerfile: services/execution-runner/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - EXECUTION_RUNNER_PORT=5000
+      - SANDBOX_MODE=docker
+
+volumes:
+  sqlite_data:
+  hf_cache:
+

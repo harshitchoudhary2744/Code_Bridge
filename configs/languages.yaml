@@ -1,0 +1,40 @@
+# Supported languages configuration for TransCode Lab
+
+languages:
+  - id: "python"
+    displayName: "Python"
+    versions:
+      - id: "3.11"
+        isDefault: true
+        executable: "python"
+        runtime: "Python 3.11+"
+        syntaxChecker: "ast.parse"
+    fileExtension: ".py"
+    monacoLanguage: "python"
+    entryPointKinds: ["function"]
+
+  - id: "java"
+    displayName: "Java"
+    versions:
+      - id: "17"
+        isDefault: true
+        compiler: "javac"
+        runtime: "java"
+        versionFlag: "--release 17"
+    fileExtension: ".java"
+    monacoLanguage: "java"
+    entryPointKinds: ["function", "method"]
+
+languagePairs:
+  - source: "python"
+    target: "java"
+    supported: true
+    defaultSourceVersion: "3.11"
+    defaultTargetVersion: "17"
+
+  - source: "java"
+    target: "python"
+    supported: true
+    defaultSourceVersion: "17"
+    defaultTargetVersion: "3.11"
+

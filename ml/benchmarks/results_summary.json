@@ -1,0 +1,14 @@
+[
+  {
+    "modelId": "salesforce-codet5-finetuned",
+    "displayName": "CodeT5 Small (Fine-Tuned Seq2Seq)",
+    "totalProblems": 2,
+    "syntaxPassRate": 0.0,
+    "compilePassRate": 0.5,
+    "behavioralPassRate": 0.5,
+    "medianLatencyMs": 923.5,
+    "failureBreakdown": {
+      "COMPILATION_ERROR": 1
+    }
+  }
+]
