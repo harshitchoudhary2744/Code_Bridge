@@ -11,3 +11,4 @@ RUN ln -s /app/services/execution-runner /app/services/execution_runner
 ENV PYTHONPATH=/app
 EXPOSE 5000
 CMD ["python", "-m", "uvicorn", "services.execution_runner.src.main:app", "--host", "0.0.0.0", "--port", "5000"]
+

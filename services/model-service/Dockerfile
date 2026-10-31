@@ -11,3 +11,4 @@ RUN ln -s /app/services/model-service /app/services/model_service
 ENV PYTHONPATH=/app
 EXPOSE 8000
 CMD ["python", "-m", "uvicorn", "services.model_service.src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+

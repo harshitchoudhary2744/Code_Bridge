@@ -18,3 +18,4 @@ services:
         value: http://127.0.0.1:5000
       - key: DEFAULT_DEVICE
         value: cpu
+

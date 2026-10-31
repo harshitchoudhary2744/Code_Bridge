@@ -5,13 +5,16 @@ FROM node:20-bookworm-slim AS build-stage
 
 WORKDIR /app
 
+# Install build tools for native addons (e.g. better-sqlite3)
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
+
 # Copy root workspace configuration and manifests
 COPY package.json package-lock.json ./
 COPY packages/api-contracts/package.json ./packages/api-contracts/
 COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
 
-# Install all workspace dependencies
+# Install all workspace dependencies cleanly
 RUN npm ci
 
 # Copy source code for TypeScript packages and apps
@@ -21,9 +24,6 @@ COPY apps/web/ ./apps/web/
 
 # Build api-contracts, api, and web
 RUN npm run build --workspaces
-
-# Prune devDependencies for production
-RUN npm prune --production
 
 # ==========================================
 # Stage 2: Production Runtime with Python 3.11, OpenJDK 17 & Node.js
@@ -38,7 +38,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     DEFAULT_DEVICE=cpu \
     MODEL_SERVICE_URL=http://127.0.0.1:8000 \
     EXECUTION_RUNNER_URL=http://127.0.0.1:5000 \
-    PYTHONPATH=/app
+    PYTHONPATH=/app \
+    NODE_PATH=/app/node_modules:/app/apps/api/node_modules
 
 # Install system dependencies:
 # - curl & ca-certificates
@@ -66,8 +67,7 @@ RUN pip install --no-cache-dir -r ./requirements.txt
 COPY --from=build-stage /app/node_modules ./node_modules
 COPY --from=build-stage /app/package.json ./package.json
 COPY --from=build-stage /app/packages/ ./packages/
-COPY --from=build-stage /app/apps/api/dist ./apps/api/dist
-COPY --from=build-stage /app/apps/api/package.json ./apps/api/package.json
+COPY --from=build-stage /app/apps/api/ ./apps/api/
 COPY --from=build-stage /app/apps/web/dist ./apps/web/dist
 
 # Copy Python services, configs, benchmark suites, and database scaffolding

@@ -16,3 +16,4 @@ COPY --from=build-stage /app/packages/ ./packages/
 COPY --from=build-stage /app/apps/api/ ./apps/api/
 EXPOSE 4000
 CMD ["node", "apps/api/dist/server.js"]
+
