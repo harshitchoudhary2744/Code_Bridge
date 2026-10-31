@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import fs from 'fs';
 import { config } from './config';
 import { getDatabase } from './db/connection';
 import { runMigrations } from './db/migrations';
@@ -51,6 +53,23 @@ export function createApp() {
   app.use('/api/v1/history', createHistoryRouter(jobsRepo));
   app.use('/api/v1/benchmarks', createBenchmarksRouter(benchmarkService));
   app.use('/api/v1/reports', createReportsRouter(jobsRepo, exportService));
+
+  // Serve compiled React frontend in single-container deployment
+  const possibleDistPaths = [
+    path.resolve(__dirname, '../../../apps/web/dist'),
+    path.resolve(__dirname, '../../web/dist'),
+    path.resolve(process.cwd(), 'apps/web/dist'),
+  ];
+  const webDist = possibleDistPaths.find((p) => fs.existsSync(p));
+  if (webDist) {
+    app.use(express.static(webDist));
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api') || req.path === '/health' || req.path === '/ready') {
+        return next();
+      }
+      res.sendFile(path.join(webDist, 'index.html'));
+    });
+  }
 
   return app;
 }
